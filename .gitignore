@@ -1,0 +1,18 @@
+# Virtual Environments and Python binaries
+.env
+venv/
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Local Application Data & Outputs
+history_log.json
+temp_resume.pdf
+*.pdf
+*.db
+
+# Operating System specific files
+.DS_Store
+
