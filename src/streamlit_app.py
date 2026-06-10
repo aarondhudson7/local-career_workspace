@@ -9,8 +9,10 @@ from cache import get_cached_job, save_job_to_cache  # Import cache tools
 
 # --- DASHBOARD PLATFORM LAYOUT ---
 st.set_page_config(page_title="Multi-Agent Workspace", layout="wide", page_icon="🏢")
-st.title("🏢 Local Multi-Agent Workspace & Executive Hub")
-st.write("Offline analytics engineered directly for Apple Silicon M4 Core Architecture.")
+#st.title("🏢 Local Multi-Agent Workspace & Executive Hub")
+#st.write("Offline analytics engineered directly for Apple Silicon M4 Core Architecture.")
+st.title("🏢 Multi-Agent Workspace & Executive Hub")
+st.write("Multi-agent career workspace powered by Groq Cloud + Llama 3.") # shifting to Groq Cloud API
 
 # Initialize app session memory keys
 if "generated_text" not in st.session_state:
@@ -27,7 +29,8 @@ agent_selection = st.sidebar.selectbox(
     ["Cover Letter Agent", "Resume Tailor Agent", "Interview Coach"]
 )
 
-model_choice = st.sidebar.selectbox("Local Compute Engine", ["llama3", "mistral", "gemma2"])
+#model_choice = st.sidebar.selectbox("Local Compute Engine", ["llama3", "mistral", "gemma2"])
+model_choice = st.sidebar.selectbox("Groq Cloud Engine", ["llama-3.3-70b-versatile", "llama-3.1-8b-instant"]) # shifting to Groq Cloud API
 job_url = st.sidebar.text_input("Job Profile Link Target", "https://ycombinator.com")
 
 # Cache expiration interval slider selector
@@ -127,7 +130,8 @@ with main_col:
         c1, c2, c3 = st.columns(3)
         c1.metric(label="Inbound Input Tokens", value=m.get("prompt_tokens") or "N/A")
         c2.metric(label="Outbound Tokens Compiled", value=m.get("completion_tokens") or "N/A")
-        c3.metric(label="Financial Overhead", value="$0.00", delta="Apple Metal Hardware")
+        #c3.metric(label="Financial Overhead", value="$0.00", delta="Apple Metal Hardware")
+        c3.metric(label="Financial Overhead", value="$0.00", delta="Groq Free Tier") # shifting to Groq Cloud API
 
         output_pdf_path = "workspace_final_document.pdf"
         if st.button("💾 Compile & Render Final Document PDF"):

@@ -3,7 +3,8 @@ import asyncio
 from playwright.async_api import async_playwright
 from langchain_core.documents import Document
 from langchain_community.document_transformers import Html2TextTransformer
-from langchain_ollama import ChatOllama
+#from langchain_ollama import ChatOllama
+from langchain_groq import ChatGroq # shifting to Groq Cloud API
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_community.document_loaders import AsyncHtmlLoader, PyPDFLoader
 from langchain_community.document_transformers import BeautifulSoupTransformer
@@ -14,10 +15,16 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 
+# shifting to Groq Cloud API
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 class AgentOrchestrator:
     def __init__(self, model_name: str):
         self.model_name = model_name
-        self.llm = ChatOllama(model=model_name, temperature=0.5)
+        #self.llm = ChatOllama(model=model_name, temperature=0.5)
+        self.llm = ChatGroq(model=model_name, temperature=0.5) # shifting to Groq Cloud API
 
     def extract_pdf_text(self, pdf_path: str):
         """Universal text extractor for resumes/documents."""
