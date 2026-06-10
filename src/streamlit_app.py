@@ -2,8 +2,10 @@ import os
 import signal
 import time  # Added to track performance duration for cache hits
 import streamlit as st
-from src.agents import AgentOrchestrator, compile_txt_to_pdf
-from src.cache import get_cached_job, save_job_to_cache  # Import cache tools
+#from src.agents import AgentOrchestrator, compile_txt_to_pdf
+#from src.cache import get_cached_job, save_job_to_cache  # Import cache tools
+from agents import AgentOrchestrator, compile_txt_to_pdf
+from cache import get_cached_job, save_job_to_cache  # Import cache tools
 
 # --- DASHBOARD PLATFORM LAYOUT ---
 st.set_page_config(page_title="Multi-Agent Workspace", layout="wide", page_icon="🏢")
