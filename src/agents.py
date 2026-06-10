@@ -156,6 +156,25 @@ class AgentOrchestrator:
             }
         return response.content, metrics
 
+    def summarize_job_posting(self, raw_job_text: str) -> str:
+        """Pre-processes raw scraped job page into a concise structured summary."""
+        """Added to save token usage in Groq Cloud API"""
+        # First truncate the raw scrape to fit within context for summarization
+        truncated = raw_job_text[:12000]
+        
+        prompt = ChatPromptTemplate.from_messages([
+            ("system", (
+                "You are a job posting parser. Extract and summarize only the essential details "
+                "from this job posting into a clean structured summary. Include: job title, company, "
+                "key responsibilities, required skills/qualifications, and any other relevant details. "
+                "Be concise. Plain text only, no markdown symbols. Max 500 words."
+            )),
+            ("user", "{raw_text}")
+        ])
+        chain = prompt | self.llm
+        response = chain.invoke({"raw_text": truncated})
+        return response.content
+
 def compile_txt_to_pdf(text_content: str, output_path: str):
     """Utility to turn any raw text into a standard professional PDF."""
     start_time = time.time()

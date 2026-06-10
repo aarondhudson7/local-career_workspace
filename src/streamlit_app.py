@@ -69,6 +69,8 @@ if st.sidebar.button("⚡ Run Agent Pipeline", disabled=(uploaded_file is None))
             else:
                 # Cache missed or expired: Execute a direct Playwright web scrape sequence
                 job_desc, t2 = orchestrator.scrape_web_content(job_url)
+                with st.spinner("Summarizing job posting..."):
+                    job_desc = orchestrator.summarize_job_posting(job_desc)
                 save_job_to_cache(job_url, job_desc)
                 st.session_state.step_logs.append(f"🌐 Step 2: Cache miss. Scraped online target page and saved locally ({t2:.2f}s)")
 
